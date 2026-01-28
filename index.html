@@ -3,430 +3,8 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Restaurante el Parque - Menú</title>
-        <style>
-            * {
-                margin: 0;
-                padding: 0;
-                box-sizing: border-box;
-            }
-
-            body {
-                font-family: 'Georgia', serif;
-                background: linear-gradient(135deg, #2c1810 0%, #1a0f0a 100%);
-                min-height: 100vh;
-                padding: 5px;
-            }
-
-            .container {
-                max-width: 900px;
-                margin: 0 auto;
-                background: #f5ebe0;
-                border-radius: 10px;
-                box-shadow: 0 10px 40px rgba(0,0,0,0.4);
-                overflow: hidden;
-                height: 100vh;
-                display: flex;
-                flex-direction: column;
-            }
-
-            .header {
-            background-image: url('img/logo.jpeg');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            color: white;
-            padding: 0;
-            text-align: center;
-            flex-shrink: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 200px;
-            overflow: hidden;
-            }
-
-            .tabs-container {
-            display: flex;
-            overflow-x: auto;
-            background: #3d2817;
-            border-bottom: 3px solid #d4a574;
-            gap: 4px;
-            padding: 6px;
-            flex-shrink: 0;
-            scroll-behavior: smooth;
-            justify-content: space-around;
-            z-index: 2;
-            position: relative;
-            }
-
-            .tab-btn {
-            padding: 8px 12px;
-            border: none;
-            background: #f5ebe0;
-            color: #2c1810;
-            cursor: pointer;
-            border-radius: 8px;
-            font-weight: bold;
-            font-size: 0.75em;
-            transition: all 0.3s ease;
-            white-space: nowrap;
-            border: 2px solid transparent;
-            min-height: 36px;
-            touch-action: manipulation;
-            }
-
-            .tab-btn:hover {
-            background: #e8d5c4;
-            border-color: #c17a2a;
-            }
-
-            .tab-btn.active {
-            background: #c17a2a;
-            color: white;
-            border-color: #c17a2a;
-            }
-
-            /* Carrusel horizontal */
-            .content-area {
-            flex: 1;
-            overflow: hidden;
-            padding: 0;
-            background: transparent;
-            position: relative;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: row;
-            }
-
-            /* Hojas wrapper para scroll horizontal */
-            .hojas-wrapper {
-            display: flex;
-            flex-direction: row;
-            width: 100%;
-            height: 100%;
-            overflow-x: auto;
-            overflow-y: hidden;
-            scroll-behavior: smooth;
-            -webkit-overflow-scrolling: touch;
-            }
-
-            /* Cada hoja ocupa el 100% del ancho visible */
-            .hoja {
-            min-width: 100%;
-            max-width: 100%;
-            height: 100%;
-            overflow-y: auto;
-            display: block;
-            background: transparent;
-            padding: 15px 10px;
-            animation: fadeIn 0.5s;
-            }
-
-            .hoja[data-hoja="1"] {
-            scroll-margin-left: 0;
-            }
-
-            .info-hoja {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            text-align: center;
-            }
-
-            .info-hoja img {
-            max-width: 200px;
-            height: auto;
-            margin-bottom: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            }
-
-            .info-hoja h2 {
-            color: #c17a2a;
-            font-size: 1.8em;
-            margin-bottom: 15px;
-            }
-
-            .info-hoja p {
-            color: #5a4a42;
-            font-size: 0.95em;
-            line-height: 1.6;
-            margin-bottom: 15px;
-            }
-
-            .contact-info {
-            background: #ede0d5;
-            border-left: 4px solid #c17a2a;
-            border-radius: 8px;
-            padding: 15px;
-            margin-top: 20px;
-            width: 100%;
-            overflow-wrap: break-word;
-            word-wrap: break-word;
-            box-sizing: border-box;
-            }
-
-            .contact-info h3 {
-            color: #c17a2a;
-            margin-bottom: 10px;
-            font-size: 1.1em;
-            }
-
-            .contact-info p {
-            color: #5a4a42;
-            margin-bottom: 8px;
-            font-size: 0.9em;
-            overflow-wrap: break-word;
-            word-break: break-word;
-            }
-
-            .contact-info a {
-            color: #c17a2a;
-            text-decoration: none;
-            font-weight: bold;
-            display: inline-block;
-            word-break: break-word;
-            }
-
-            .contact-info a:hover {
-            text-decoration: underline;
-            }
-
-            @keyframes fadeIn {
-            from {
-            opacity: 0;
-            }
-
-            to {
-            opacity: 1;
-            }
-            }
-
-            .categoria {
-            margin-bottom: 15px;
-            }
-
-            .categoria h2 {
-            color: #c17a2a;
-            font-size: 1.1em;
-            margin-bottom: 8px;
-            padding-bottom: 8px;
-            border-bottom: 2px solid #d4a574;
-            }
-
-            .platillos {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            }
-
-            .platillo {
-            padding: 10px 10px;
-            background: #f9f4f0;
-            border-left: 4px solid #c17a2a;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            min-height: 40px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            }
-
-            .platillo strong {
-            color: #c17a2a;
-            font-size: 0.9em;
-            }
-
-            .platillo small {
-            color: #5a4a42;
-            line-height: 1.4;
-            display: block;
-            margin-top: 5px;
-            font-size: 0.8em;
-            }
-
-            .platillo:hover {
-            background: #ede0d5;
-            transform: translateX(3px);
-            }
-
-            .platillo:active {
-            background: #e0cfc2;
-            }
-
-            .scroll-indicator {
-            text-align: center;
-            padding: 10px;
-            font-size: 0.9em;
-            color: #999;
-            }
-
-            /* Scrollbar personalizado horizontal para hojas-wrapper */
-            .hojas-wrapper::-webkit-scrollbar {
-            height: 8px;
-            }
-
-            .hojas-wrapper::-webkit-scrollbar-track {
-            background: #f1f1f1;
-            }
-
-            .hojas-wrapper::-webkit-scrollbar-thumb {
-            background: #667eea;
-            border-radius: 4px;
-            }
-
-            .hojas-wrapper::-webkit-scrollbar-thumb:hover {
-            background: #764ba2;
-            }
-
-            /* Scrollbar vertical para cada hoja */
-            .hoja::-webkit-scrollbar {
-            width: 8px;
-            }
-
-            .hoja::-webkit-scrollbar-track {
-            background: #f1f1f1;
-            }
-
-            .hoja::-webkit-scrollbar-thumb {
-            background: #c17a2a;
-            border-radius: 4px;
-            }
-
-            .hoja::-webkit-scrollbar-thumb:hover {
-            background: #a06a1a;
-            }
-
-            @media (max-width: 768px) {
-            .tab-btn {
-            padding: 7px 8px;
-            font-size: 0.65em;
-            min-height: 34px;
-            }
-
-            .header h1 {
-            font-size: 1.5em;
-            }
-
-            .header p {
-            font-size: 0.8em;
-            }
-
-            .tabs-container {
-            gap: 3px;
-            padding: 5px;
-            }
-
-            .hoja {
-            padding: 12px 8px;
-            }
-            }
-
-            @media (max-width: 480px) {
-            body {
-            padding: 3px;
-            }
-
-            .header {
-            padding: 12px 8px;
-            }
-
-            .header h1 {
-            font-size: 1.3em;
-            margin-bottom: 3px;
-            }
-
-            .header p {
-            font-size: 0.75em;
-            }
-
-            .tabs-container {
-            gap: 2px;
-            padding: 4px;
-            justify-content: space-between;
-            }
-
-            .tab-btn {
-            padding: 6px 5px;
-            font-size: 0.6em;
-            min-height: 32px;
-            flex: 1;
-            text-align: center;
-            }
-
-            .header img {
-            max-width: 60px;
-            margin-bottom: 8px;
-            }
-
-            .hoja {
-            padding: 10px 4px;
-            }
-
-            .categoria h2 {
-            font-size: 1em;
-            margin-bottom: 6px;
-            }
-
-            .platillo {
-            padding: 8px 8px;
-            min-height: 38px;
-            font-size: 0.85em;
-            }
-
-            .platillo strong {
-            font-size: 0.85em;
-            }
-
-            .platillo small {
-            font-size: 0.75em;
-            margin-top: 3px;
-            }
-
-            .platillos {
-            gap: 5px;
-            }
-
-            .info-hoja {
-            padding: 15px 10px;
-            }
-
-            .info-hoja h2 {
-            font-size: 1.4em;
-            margin-bottom: 10px;
-            }
-
-            .info-hoja p {
-            font-size: 0.85em;
-            margin-bottom: 12px;
-            }
-
-            .contact-info {
-            padding: 12px;
-            margin-top: 15px;
-            border-left: 3px solid #c17a2a;
-            }
-
-            .contact-info h3 {
-            font-size: 0.95em;
-            margin-bottom: 8px;
-            }
-
-            .contact-info p {
-            font-size: 0.8em;
-            margin-bottom: 6px;
-            }
-
-            .contact-info a {
-            font-size: 0.8em;
-            }
-            }
-        </style>
+        <title>Restaurante El Parque – Menú</title>
+        <link rel="stylesheet" href="estilos.css">
     </head>
     <body>
         <div class="container">
@@ -436,8 +14,8 @@
 
             <!-- BOTONES DE NAVEGACIÓN (HOJAS) -->
             <div class="tabs-container">
-                <button class="tab-btn active" onclick="mostrarHoja(1)">Info</button>
-                <button class="tab-btn" onclick="mostrarHoja(2)">Desayuno</button>
+                <button class="tab-btn active" onclick="mostrarHoja(1)">Información</button>
+                <button class="tab-btn" onclick="mostrarHoja(2)">Desayunos</button>
                 <button class="tab-btn" onclick="mostrarHoja(3)">Arroces</button>
                 <button class="tab-btn" onclick="mostrarHoja(4)">Rápida</button>
                 <button class="tab-btn" onclick="mostrarHoja(5)">Gustitos</button>
@@ -450,65 +28,75 @@
                 <div class="hojas-wrapper" id="hojasWrapper">
                     <!-- HOJA 1: INFORMACIÓN -->
                     <div class="hoja info-hoja" data-hoja="1">
-                        <img src="img/logo.jpeg" alt="Logo Restaurante El Parque">
+                        <img src="img/logo.jpeg" alt="Logo de Restaurante El Parque">
                         <h2>Restaurante El Parque</h2>
                         <p>¡Bienvenido a nuestro restaurante!</p>
-                        <p>Somos un lugar dedicado a servir deliciosas comidas caseras con ingredientes frescos y de calidad. Nuestro menú ofrece una variedad de opciones para todos los gustos.</p>
+                        <p>Somos un lugar dedicado a servir deliciosas comidas caseras, preparadas con ingredientes frescos y de calidad. Nuestro menú ofrece una gran variedad de opciones para todos los gustos.</p>
 
                         <div class="contact-info">
-                            <h3>📞 Datos de Contacto</h3>
+                            <h3>📞 Datos de contacto</h3>
                             <p><strong>Teléfono:</strong> <a href="tel:+50626398521" target="_blank">+506 2639-8521</a></p>
                             <p><strong>WhatsApp:</strong> <a href="https://api.whatsapp.com/send?phone=50683499351" target="_blank">+506 8349-9351</a></p>
-                            <p><strong>Facebook:</strong> <a href="https://www.facebook.com/Rest.ElParque/?locale=es_LA" target="_blank">Restaurant El Parque</a></p>
-                            <p><strong>Instagram:</strong> <a href="https://www.instagram.com/rest_el_parque/?hl=es-la" target="_blank">Restaurant El Parque</a></p>
+                            <p><strong>Facebook:</strong> <a href="https://www.facebook.com/Rest.ElParque/?locale=es_LA" target="_blank">Restaurante El Parque</a></p>
+                            <p><strong>Instagram:</strong> <a href="https://www.instagram.com/rest_el_parque/?hl=es-la" target="_blank">Restaurante El Parque</a></p>
                         </div>
                     </div>
 
                     <!-- HOJA 2: DESAYUNOS -->
                     <div class="hoja" data-hoja="2">
-                        <div class="categoria">
-                            <h2>🌅 DESAYUNOS</h2>
-                            <div class="platillos">
-                                <div class="platillo">
-                                    <strong>OPCION #1</strong> ₡2700<br>
-                                    <small>
-                                        Gallo pinto, un maduro y dos acompañamientos.<br>
-                                        Acompañamientos a elegir: un huevo, un queso, un salchichón o natilla.
-                                    </small>
+                        <h2 style="margin-top:0;">🌅 DESAYUNOS</h2>
+                        <div class="desayuno-flex" style="display: flex; gap: 24px; align-items: flex-start;">
+                            <div class="desayuno-col-izq" style="flex: 1; min-width: 180px; max-width: 220px;">
+                                <div class="platillos">
+                                    <div class="platillo">
+                                        <strong>OPCIÓN #1</strong> ₡2 700<br>
+                                        <small>
+                                            Gallo pinto, un maduro y dos acompañamientos.<br>
+                                            Acompañamientos a elegir: huevo, queso, salchichón o natilla.
+                                        </small>
+                                    </div>
+                                    <div class="platillo">
+                                        <strong>OPCIÓN #2</strong> ₡2 900<br>
+                                        <small>
+                                            Gallo pinto, un maduro y huevo al gusto, acompañados con tocineta o jamón y un acompañamiento.<br>
+                                            Acompañamientos a elegir: huevo, queso, salchichón o natilla.
+                                        </small>
+                                    </div>
+                                    <div class="platillo">
+                                        <strong>OPCIÓN #3</strong> ₡3 500<br>
+                                        <small>
+                                            Gallo pinto, un maduro, una carne y un acompañamiento.<br>
+                                            Acompañamientos a elegir: huevo, queso, salchichón o natilla.<br>
+                                            Carnes a elegir: chuleta, bistec, pollo frito o carne en salsa.
+                                        </small>
+                                    </div>
                                 </div>
-                                <div class="platillo">
-                                    <strong>OPCION #2</strong> ₡2900<br>
-                                    <small>
-                                        Gallo pinto, un maduro y huevo al gusto acompañados con tocineta o jamón y un acompañamiento.<br>
-                                        Acompañamientos a elegir: un huevo, un queso, un salchichón o natilla.
-                                    </small>
+                            </div>
+                            <div class="desayuno-col-der" style="flex: 2;">
+                                <div style="text-align:center; margin-bottom: 16px;">
+                                    <img src="img/gallopinto.jpeg" alt="Gallo Pinto" style="max-width: 120px; width: 100%; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.10);">
                                 </div>
-                                <div class="platillo">
-                                    <strong>OPCION #3</strong> ₡3500<br>
-                                    <small>
-                                        Gallo pinto, un maduro, una carne y un acompañamiento.<br>
-                                        Acompañamientos para elegir: un huevo, un queso, un salchichón o natilla.<br>
-                                        Carnes a elegir: una chuleta, un bistec, un pollo frito o carne en salsa.
-                                    </small>
-                                </div>
-                                <div class="platillo">
-                                    <strong>TOSTADAS CON JALEA</strong> ₡1300
-                                </div>
-                                <div class="platillo">
-                                    <strong>TOSTADAS CON JAMON</strong> ₡1300
-                                </div>
-                                <div class="platillo">
-                                    <strong>TOSTADAS CON HUEVO AL GUSTO ACOMPAÑADOS DE JAMON O TOCINETA</strong> ₡3500
-                                </div>
-                                <div class="platillo">
-                                    <strong>HUEVO RANCHERO O HUEVO CON TOMATE</strong> ₡1000
-                                </div>
-                                <div class="platillo">
-                                    <strong>ACOMPAÑAMIENTOS EXTRA</strong> ₡700<br>
-                                    <small>Huevo, jamón, tocineta, salchichón, tostadas, salchicha, queso, natilla, jalea, maduro o torta de huevo.</small>
+                                <div class="platillos">
+                                    <div class="platillo">
+                                        <strong>TOSTADAS CON JALEA</strong> ₡1300
+                                    </div>
+                                    <div class="platillo">
+                                        <strong>TOSTADAS CON JAMÓN</strong> ₡1 300
+                                    </div>
+                                    <div class="platillo">
+                                        <strong>TOSTADAS CON HUEVO AL GUSTO ACOMPAÑADAS DE JAMÓN O TOCINETA</strong> ₡3 500
+                                    </div>
+                                    <div class="platillo">
+                                        <strong>HUEVO RANCHERO O HUEVO CON TOMATE</strong> ₡1000
+                                    </div>
+                                    <div class="platillo">
+                                        <strong>ACOMPAÑAMIENTOS EXTRA</strong> ₡700<br>
+                                        <small>Huevo, jamón, tocineta, salchichón, tostadas, salchicha, queso, natilla, jalea, maduro o torta de huevo.</small>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                        <div class="footer-hoja" style="margin-top: 18px; font-size: 0.95em; color: #c17a2a; text-align: center; font-weight: bold;">PLATOS PARA LLEVAR SE COBRA EL EMPAQUE A ₡200</div>
                     </div>
 
                     <!-- HOJA 3: ARROCES, CHOP SUEY, CASADOS -->
@@ -552,7 +140,7 @@
                                     </small>
                                 </div>
                                 <div class="platillo">
-                                    <strong>CAMARON CON ARROZ</strong><br>
+                                    <strong>CAMARÓN CON ARROZ</strong><br>
                                     <small style="display: flex;  gap: 10px; margin-top: 5px;">
                                         <span>Medio: ₡4400</span>
                                         <span>Entero: ₡5800</span>
@@ -576,8 +164,8 @@
                                     <strong>ARROZ CHINO</strong><br>
                                     <small style="display: flex;  gap: 10px; margin-top: 5px;">
                                         <span>Medio: ₡4000</span>
-                                        <span>Entero: ₡5500</span>
-                                    </small>
+                                <p style="margin: 0 0 8px 0;"><strong style="color: #c17a2a;">Nota:</strong> Todos los platos se sirven con ensalada y tortillas tostadas.</p>
+                                <p style="margin: 0;">Para llevar, no se incluyen acompañamientos.</p>
                                 </div>
                             </div>
                             <div style="margin-top: 12px; padding: 10px; background: #f9f4f0; border-left: 4px solid #c17a2a; border-radius: 4px; font-size: 0.85em; color: #5a4a42; line-height: 1.5;">
@@ -604,20 +192,20 @@
                                     </small>
                                 </div>
                             </div>
-                        </div>
-
-                        <div class="categoria">
-                            <h2>🍲 CASADOS</h2>
-                            <div class="platillos">
                                 <div class="platillo">
-                                    <strong>OPCION #1</strong> ₡3500<br>
+                                    <strong>OPCIÓN #1</strong> ₡3 500<br>
                                     <small>
                                         Arroz, frijoles, ensalada, picadillo, un maduro y una ensalada a elegir.<br>
-                                        Carne a elegir: Chuleta, pollo frito o carne en salsa.
+                                        Carne a elegir: chuleta, pollo frito o carne en salsa.
                                     </small>
-                                </div>
+                                    <strong>OPCIÓN #1</strong> ₡3 500<br>
                                 <div class="platillo">
-                                    <strong>OPCION #2</strong> ₡3700<br>
+                                    <strong>OPCIÓN #2</strong> ₡3 700<br>
+                                    <small>
+                                        Arroz, frijoles, ensalada, picadillo, un maduro y una ensalada a elegir.<br>
+                                        Carne a elegir: bistec, pescado, pollo a la plancha, costilla, fajitas de res, fajitas de pollo o fajitas mixtas.
+                                    </small>
+                                    <strong>OPCIÓN #2</strong> ₡3 700<br>
                                     <small>
                                         Arroz, frijoles, ensalada, picadillo, un maduro y una ensalada a elegir.<br>
                                         Carne a elegir: Bistec, Pescado, Pollo a la Plancha, Costilla, Fajitas de Res, Fajitas de Pollo o Fajitas Mixtas.
@@ -625,6 +213,7 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="footer-hoja" style="margin-top: 18px; font-size: 0.95em; color: #c17a2a; text-align: center; font-weight: bold;">PLATOS PARA LLEVAR SE COBRA EL EMPAQUE A ₡200</div>
                     </div>
 
                     <!-- HOJA 4: COMIDA RÁPIDA Y BOQUITAS -->
@@ -642,49 +231,49 @@
                                     <strong>TACO DOBLE</strong> ₡2300
                                 </div>
                                 <div class="platillo">
-                                    <strong>CHALUPA DE POLLO, CARNE O MIXTA</strong> ₡2600
+                                    <strong>CHALUPA DE POLLO, CARNE O MIXTA</strong> ₡2 600
                                 </div>
                                 <div class="platillo">
-                                    <strong>CHALUPA DE CAMARON (BASE DE PATACON)</strong> ₡3200
+                                    <strong>CHALUPA DE CAMARÓN (BASE DE PATACÓN)</strong> ₡3 200
                                 </div>
                                 <div class="platillo">
-                                    <strong>HAMBURGUESA SENCILLA</strong> ₡1400
+                                    <strong>HAMBURGUESA SENCILLA</strong> ₡1 400
                                 </div>
                                 <div class="platillo">
-                                    <strong>SUPER HAMBURGUESA</strong> ₡3500
+                                    <strong>SÚPER HAMBURGUESA</strong> ₡3 500
                                 </div>
                                 <div class="platillo">
-                                    <strong>HAMBURGUESA DE POLLO</strong> ₡3800
+                                    <strong>HAMBURGUESA DE POLLO</strong> ₡3 800
                                 </div>
                                 <div class="platillo">
-                                    <strong>HAMBURGUESA ESPECIAL</strong> ₡4200
+                                    <strong>HAMBURGUESA ESPECIAL</strong> ₡4 200
                                 </div>
                                 <div class="platillo">
-                                    <strong>POLLO FRITO CON PAPAS</strong> ₡3400
+                                    <strong>POLLO FRITO CON PAPAS</strong> ₡3 400
                                 </div>
                                 <div class="platillo">
-                                    <strong>POLLO FRITO CON TORTILLAS</strong> ₡2200
+                                    <strong>POLLO FRITO CON TORTILLAS</strong> ₡2 200
                                 </div>
                                 <div class="platillo">
-                                    <strong>NACHOS DE CARNE, POLLO O MIXTO</strong> ₡3000
+                                    <strong>NACHOS DE CARNE, POLLO O MIXTO</strong> ₡3 000
                                 </div>
                                 <div class="platillo">
-                                    <strong>SALCHIPAPAS</strong> ₡2500
+                                    <strong>SALCHIPAPAS</strong> ₡2 500
                                 </div>
                                 <div class="platillo">
-                                    <strong>PAPICARNE</strong> ₡3000
+                                    <strong>PAPICARNE</strong> ₡3 000
                                 </div>
                                 <div class="platillo">
-                                    <strong>SALCHIPAPICARNE</strong> ₡3500
+                                    <strong>SALCHIPAPICARNE</strong> ₡3 500
                                 </div>
                                 <div class="platillo">
-                                    <strong>ALBOROTO</strong> ₡3800
+                                    <strong>ALBOROTO</strong> ₡3 800
                                 </div>
                                 <div class="platillo">
-                                    <strong>DEDOS DE PESCADO CON PAPAS</strong> ₡3000
+                                    <strong>DEDOS DE PESCADO CON PAPAS</strong> ₡3 000
                                 </div>
                                 <div class="platillo">
-                                    <strong>DEDOS DE POLLO CON PAPAS</strong> ₡2900
+                                    <strong>DEDOS DE POLLO CON PAPAS</strong> ₡2 900
                                 </div>
                             </div>
                         </div>
@@ -693,22 +282,23 @@
                             <h2>🍟 BOQUITAS</h2>
                             <div class="platillos">
                                 <div class="platillo">
-                                    <strong>BOQUITA DE CANTONES</strong> ₡1500
+                                    <strong>BOQUITA DE CANTONES</strong> ₡1 500
                                 </div>
                                 <div class="platillo">
-                                    <strong>BOQUITA DE NACHOS</strong> ₡1500
+                                    <strong>BOQUITA DE NACHOS</strong> ₡1 500
                                 </div>
                                 <div class="platillo">
-                                    <strong>BOQUITA DE CEVICHES</strong> ₡1500
+                                    <strong>BOQUITA DE CEVICHES</strong> ₡1 500
                                 </div>
                                 <div class="platillo">
-                                    <strong>BOQUITA DE SALCHICHON</strong> ₡1500
+                                    <strong>BOQUITA DE SALCHICHÓN</strong> ₡1 500
                                 </div>
                                 <div class="platillo">
-                                    <strong>BOQUITA DE TORTILLAS CON FRIJOL</strong> ₡1500
+                                    <strong>BOQUITA DE TORTILLAS CON FRIJOL</strong> ₡1 500
                                 </div>
                             </div>
                         </div>
+                        <div class="footer-hoja" style="margin-top: 18px; font-size: 0.95em; color: #c17a2a; text-align: center; font-weight: bold;">PLATOS PARA LLEVAR SE COBRA EL EMPAQUE A ₡200</div>
                     </div>
 
                     <!-- HOJA 5: GUSTITOS Y PLATOS FUERTES -->
@@ -719,50 +309,50 @@
                                 <div class="platillo">
                                     <strong>ALITAS DE POLLO</strong><br>
                                     <small>
-                                        3 Alitas: ₡3100 | 6 Alitas: ₡5900 | 9 Alitas: ₡8800<br>
-                                        Aderezos a elegir: Salsa BBQ, Búfalo, Salsa Especial de la Casa.<br>
+                                        3 alitas: ₡3 100 | 6 alitas: ₡5 900 | 9 alitas: ₡8 800<br>
+                                        Aderezos a elegir: salsa BBQ, búfalo, salsa especial de la casa.<br>
                                         Acompañadas de papas en gajo, bastones de apio, zanahoria y salsa ranch.
                                     </small>
                                 </div>
                                 <div class="platillo">
-                                    <strong>COSTILLA A LA BBQ</strong> ₡5100
+                                    <strong>COSTILLA A LA BBQ</strong> ₡5 100
                                 </div>
                                 <div class="platillo">
-                                    <strong>CHIFRIJO</strong> ₡3800
+                                    <strong>CHIFRIJO</strong> ₡3 800
                                 </div>
                                 <div class="platillo">
-                                    <strong>COSTIFRIJO</strong> ₡4500
+                                    <strong>COSTIFRIJO</strong> ₡4 500
                                 </div>
                                 <div class="platillo">
-                                    <strong>VIGORON</strong> ₡3500
+                                    <strong>VIGORÓN</strong> ₡3 500
                                 </div>
                                 <div class="platillo">
-                                    <strong>PATACONES CON FRIJOLES, QUESO</strong> ₡2800<br>
+                                    <strong>PATACONES CON FRIJOLES, QUESO</strong> ₡2 800<br>
                                     <small>Acompañados de frijoles molidos y queso.</small>
                                 </div>
                                 <div class="platillo">
-                                    <strong>PATACONES CON FRIJOLES, QUESO Y CARNE</strong> ₡3900<br>
+                                    <strong>PATACONES CON FRIJOLES, QUESO Y CARNE</strong> ₡3 900<br>
                                     <small>Acompañados de frijoles molidos, queso y pico de gallo.</small>
                                 </div>
                                 <div class="platillo">
-                                    <strong>CEVICHE DE PESCADO MEDIANO</strong> ₡3800<br>
+                                    <strong>CEVICHE DE PESCADO MEDIANO</strong> ₡3 800<br>
                                     <small>Con patacones o yuca.</small>
                                 </div>
                                 <div class="platillo">
-                                    <strong>CEVICHE DE PESCADO GRANDE</strong> ₡6500<br>
+                                    <strong>CEVICHE DE PESCADO GRANDE</strong> ₡6 500<br>
                                     <small>Con patacones o yuca.</small>
                                 </div>
                                 <div class="platillo">
-                                    <strong>CANASTAS DE CARNE O POLLO</strong> ₡3600
+                                    <strong>CANASTAS DE CARNE O POLLO</strong> ₡3 600
                                 </div>
                                 <div class="platillo">
-                                    <strong>CANASTAS DE CAMARON</strong> ₡4800
+                                    <strong>CANASTAS DE CAMARÓN</strong> ₡4 800
                                 </div>
                                 <div class="platillo">
-                                    <strong>PLATO SURTIDO PARA 2 PERSONAS</strong> ₡8300
+                                    <strong>PLATO SURTIDO PARA 2 PERSONAS</strong> ₡8 300
                                 </div>
                                 <div class="platillo">
-                                    <strong>PLATO SURTIDO PARA 4 PERSONAS</strong> ₡13000
+                                    <strong>PLATO SURTIDO PARA 4 PERSONAS</strong> ₡13 000
                                 </div>
                             </div>
                         </div>
@@ -771,31 +361,32 @@
                             <h2>🍖 PLATOS FUERTES</h2>
                             <div class="platillos">
                                 <div class="platillo">
-                                    <strong>FILET DE CORVINA AL GUSTO</strong> ₡5300<br>
-                                    <small>Al ajillo, mantequilla, plancha o empanizado.</small>
+                                    <strong>FILET DE CORVINA AL GUSTO</strong> ₡5 300<br>
+                                    <small>Al ajillo, mantequilla, a la plancha o empanizado.</small>
                                 </div>
                                 <div class="platillo">
-                                    <strong>FILET DE CORVINA EN SALSA DE TOMATE</strong> ₡5400
+                                    <strong>FILET DE CORVINA EN SALSA DE TOMATE</strong> ₡5 400
                                 </div>
                                 <div class="platillo">
-                                    <strong>FILET DE CORVINA EN SALSA BLANCA CON HONGOS</strong> ₡5800
+                                    <strong>FILET DE CORVINA EN SALSA BLANCA CON HONGOS</strong> ₡5 800
                                 </div>
                                 <div class="platillo">
-                                    <strong>FILET DE CORVINA EN SALSA DE CAMARÓN</strong> ₡6950
+                                    <strong>FILET DE CORVINA EN SALSA DE CAMARÓN</strong> ₡6 950
                                 </div>
                                 <div class="platillo">
-                                    <strong>FILET DE POLLO AL GUSTO</strong> ₡4800<br>
+                                    <strong>FILET DE POLLO AL GUSTO</strong> ₡4 800<br>
                                     <small>Al ajillo, a la plancha.</small>
                                 </div>
                                 <div class="platillo">
-                                    <strong>FILET DE POLLO EN SALSA BLANCA CON HONGOS</strong> ₡5000
+                                    <strong>FILET DE POLLO EN SALSA BLANCA CON HONGOS</strong> ₡5 000
                                 </div>
                                 <div class="platillo">
-                                    <strong>COCTEL DE CAMARONES</strong> ₡6500<br>
+                                    <strong>CÓCTEL DE CAMARONES</strong> ₡6 500<br>
                                     <small>Al ajillo, mantequilla o empanizado.</small>
                                 </div>
                             </div>
                         </div>
+                        <div class="footer-hoja" style="margin-top: 18px; font-size: 0.95em; color: #c17a2a; text-align: center; font-weight: bold;">PLATOS PARA LLEVAR SE COBRA EL EMPAQUE A ₡200</div>
                     </div>
 
                     <!-- HOJA 6: GALLOS, SOPAS, EMPAREDADOS, EMPANADAS -->
@@ -807,7 +398,7 @@
                                     <strong>GALLO CON QUESO</strong> ₡1200
                                 </div>
                                 <div class="platillo">
-                                    <strong>GALLO CON SALCHICHON</strong> ₡1300
+                                    <strong>GALLO CON SALCHICHÓN</strong> ₡1 300
                                 </div>
                                 <div class="platillo">
                                     <strong>GALLO CON POLLO FRITO (1 PIEZA)</strong> ₡1700
@@ -825,13 +416,13 @@
                             <h2>🍲 SOPAS</h2>
                             <div class="platillos">
                                 <div class="platillo">
-                                    <strong>SOPA CONSOME DE POLLO</strong> ₡3100
+                                    <strong>SOPA CONSOMÉ DE POLLO</strong> ₡3 100
                                 </div>
                                 <div class="platillo">
-                                    <strong>SOPA DE MARISCOS EN AGUA</strong> ₡4200
+                                    <strong>SOPA DE MARISCOS EN AGUA</strong> ₡4 200
                                 </div>
                                 <div class="platillo">
-                                    <strong>SOPA DE MARISCOS EN LECHE</strong> ₡5100
+                                    <strong>SOPA DE MARISCOS EN LECHE</strong> ₡5 100
                                 </div>
                             </div>
                         </div>
@@ -840,26 +431,26 @@
                             <h2>🥪 EMPAREDADOS</h2>
                             <div class="platillos">
                                 <div class="platillo">
-                                    <strong>EMPAREDADO DE JAMON</strong> ₡1600
+                                    <strong>EMPAREDADO DE JAMÓN</strong> ₡1 600
                                 </div>
                                 <div class="platillo">
-                                    <strong>EMPAREDADO DE QUESO</strong> ₡1600
+                                    <strong>EMPAREDADO DE QUESO</strong> ₡1 600
                                 </div>
                                 <div class="platillo">
-                                    <strong>EMPAREDADO DE JAMON Y QUESO</strong> ₡2000
+                                    <strong>EMPAREDADO DE JAMÓN Y QUESO</strong> ₡2 000
                                 </div>
                                 <div class="platillo">
-                                    <strong>EMPAREDADO DE CARNE</strong> ₡2500
+                                    <strong>EMPAREDADO DE CARNE</strong> ₡2 500
                                 </div>
                                 <div class="platillo">
-                                    <strong>EMPAREDADO DE POLLO</strong> ₡2500
+                                    <strong>EMPAREDADO DE POLLO</strong> ₡2 500
                                 </div>
                                 <div class="platillo">
-                                    <strong>ACOMPAÑAMIENTO DE PAPAS</strong> ₡1200
+                                    <strong>ACOMPAÑAMIENTO DE PAPAS</strong> ₡1 200
                                 </div>
                             </div>
                             <div style="margin-top: 12px; padding: 10px; background: #f9f4f0; border-left: 4px solid #c17a2a; border-radius: 4px; font-size: 0.85em; color: #5a4a42; line-height: 1.5;">
-                                <p style="margin: 0;"><strong style="color: #c17a2a;">OPCIÓN DE PAN:</strong> Pan Baguette o Pan Cuadrado.</p>
+                                <p style="margin: 0;"><strong style="color: #c17a2a;">Opción de pan:</strong> pan baguette o pan cuadrado.</p>
                             </div>
                         </div>
 
@@ -867,25 +458,26 @@
                             <h2>🥟 EMPANADAS</h2>
                             <div class="platillos">
                                 <div class="platillo">
-                                    <strong>EMPANADA DE CARNE</strong> ₡1400
+                                    <strong>EMPANADA DE CARNE</strong> ₡1 400
                                 </div>
                                 <div class="platillo">
-                                    <strong>EMPANADA DE POLLO</strong> ₡1400
+                                    <strong>EMPANADA DE POLLO</strong> ₡1 400
                                 </div>
                                 <div class="platillo">
-                                    <strong>EMPANADA DE FRIJOL</strong> ₡1200
+                                    <strong>EMPANADA DE FRIJOL</strong> ₡1 200
                                 </div>
                                 <div class="platillo">
-                                    <strong>EMPANADA DE QUESO</strong> ₡1300
+                                    <strong>EMPANADA DE QUESO</strong> ₡1 300
                                 </div>
                                 <div class="platillo">
-                                    <strong>EMPANADA DE POLLO O CARNE ARREGLADA</strong> ₡1700
+                                    <strong>EMPANADA DE POLLO O CARNE ARREGLADA</strong> ₡1 700
                                 </div>
                                 <div class="platillo">
-                                    <strong>MADURO CON QUESO Y NATILLA</strong> ₡2500
+                                    <strong>MADURO CON QUESO Y NATILLA</strong> ₡2 500
                                 </div>
                             </div>
                         </div>
+                        <div class="footer-hoja" style="margin-top: 18px; font-size: 0.95em; color: #c17a2a; text-align: center; font-weight: bold;">PLATOS PARA LLEVAR SE COBRA EL EMPAQUE A ₡200</div>
                     </div>
 
                     <!-- HOJA 7: ACOMPAÑAMIENTOS, POSTRES Y BEBIDAS -->
@@ -921,7 +513,7 @@
                                     <strong>ORDEN DE YUCA FRITA PEQUEÑA</strong> ₡1400
                                 </div>
                                 <div class="platillo">
-                                    <strong>ORDEN DE YUCA FRITA GRANDE</strong> ₡2500
+                                    <strong>ORDEN DE YUCA FRITA GRANDE</strong> ₡2 500
                                 </div>
                                 <div class="platillo">
                                     <strong>ORDEN DE MADUROS</strong> ₡800
@@ -933,13 +525,13 @@
                             <h2>🍰 POSTRES</h2>
                             <div class="platillos">
                                 <div class="platillo">
-                                    <strong>ENSALADA DE FRUTAS</strong> ₡2800
+                                    <strong>ENSALADA DE FRUTAS</strong> ₡2 800
                                 </div>
                                 <div class="platillo">
-                                    <strong>COPA DE HELADO</strong> ₡1600
+                                    <strong>COPA DE HELADO</strong> ₡1 600
                                 </div>
                                 <div class="platillo">
-                                    <strong>GELATINA CON HELADO</strong> ₡2000
+                                    <strong>GELATINA CON HELADO</strong> ₡2 000
                                 </div>
                             </div>
                         </div>
@@ -950,41 +542,41 @@
                                 <div class="platillo">
                                     <strong>NATURAL DE PULPA </strong><br>
                                     <small>
-                                        Agua: ₡1200 | Leche: ₡1500<br>
-                                        Sabor a elegir: Piña, Mora, Guanabana, zanahoria con naranja, maracuyá, papaya, fresa, frutas, mango y cas.<br>
+                                        Agua: ₡1 200 | Leche: ₡1 500<br>
+                                        Sabores a elegir: piña, mora, guanábana, zanahoria con naranja, maracuyá, papaya, fresa, frutas, mango y cas.<br>
                                 </div>
                                 <div class="platillo">
-                                    <strong>CREMA</strong> ₡2000
+                                    <strong>CREMA</strong> ₡2 000
                                 </div>
                                 <div class="platillo">
-                                    <strong>COCOMALT</strong> ₡2000
+                                    <strong>COCOMALT</strong> ₡2 000
                                 </div>
                                 <div class="platillo">
-                                    <strong>MATE</strong> ₡2000
+                                    <strong>MATE</strong> ₡2 000
                                 </div>
                                 <div class="platillo">
-                                    <strong>CERVEZA SOLA</strong> ₡1500
+                                    <strong>CERVEZA SOLA</strong> ₡1 500
                                 </div>
                                 <div class="platillo">
-                                    <strong>CERVEZA CON BOQUITA</strong> ₡2000
+                                    <strong>CERVEZA CON BOQUITA</strong> ₡2 000
                                 </div>
                                 <div class="platillo">
-                                    <strong>CERVEZA MICHELADA</strong> ₡2500
+                                    <strong>CERVEZA MICHELADA</strong> ₡2 500
                                 </div>
                                 <div class="platillo">
-                                    <strong>GASEOSAS DESECHABLES 600ml</strong> ₡1200
+                                    <strong>GASEOSAS DESECHABLES 600 ml</strong> ₡1 200
                                 </div>
                                 <div class="platillo">
-                                    <strong>GASEOSAS VIDRIO 350ml</strong> ₡900
+                                    <strong>GASEOSAS VIDRIO 350 ml</strong> ₡900
                                 </div>
                                 <div class="platillo">
-                                    <strong>TROPICAL DESECHABLE</strong> ₡1000
+                                    <strong>TROPICAL DESECHABLE</strong> ₡1 000
                                 </div>
                                 <div class="platillo">
-                                    <strong>POWERADE</strong> ₡1200
+                                    <strong>POWERADE</strong> ₡1 200
                                 </div>
                                 <div class="platillo">
-                                    <strong>REFRESCO FAMILIAR 2.5 L</strong> ₡2500
+                                    <strong>REFRESCO FAMILIAR 2.5 l</strong> ₡2 500
                                 </div>
                             </div>
                         </div>
@@ -993,10 +585,10 @@
                             <h2>☕ BEBIDAS CALIENTES</h2>
                             <div class="platillos">
                                 <div class="platillo">
-                                    <strong>CAFE NEGRO</strong> ₡900
+                                    <strong>CAFÉ NEGRO</strong> ₡900
                                 </div>
                                 <div class="platillo">
-                                    <strong>CAFE CON LECHE</strong> ₡1200
+                                    <strong>CAFÉ CON LECHE</strong> ₡1 200
                                 </div>
                                 <div class="platillo">
                                     <strong>AGUA DULCE NEGRO</strong> ₡900
@@ -1005,78 +597,16 @@
                                     <strong>AGUA DULCE CON LECHE</strong> ₡800
                                 </div>
                                 <div class="platillo">
-                                    <strong>CHOCOLATE</strong> ₡1300
+                                    <strong>CHOCOLATE</strong> ₡1 300
                                 </div>
                             </div>
                         </div>
+                        <div class="footer-hoja" style="margin-top: 18px; font-size: 0.95em; color: #c17a2a; text-align: center; font-weight: bold;">PLATOS PARA LLEVAR SE COBRA EL EMPAQUE A ₡200</div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <script>
-            const hojasWrapper = document.getElementById('hojasWrapper');
-            const tabButtons = document.querySelectorAll('.tab-btn');
-            const hojas = document.querySelectorAll('.hoja');
-            let hojaActual = 1;
-
-            // Navegación por botón (ahora global)
-            function mostrarHoja(numero) {
-                const offset = (numero - 1) * hojasWrapper.offsetWidth;
-                hojasWrapper.scrollTo({ left: offset, behavior: 'smooth' });
-                hojaActual = numero;
-                actualizarBotonesActivos(numero);
-            }
-            window.mostrarHoja = mostrarHoja; // Hacer global
-
-            // Actualiza botones activos
-            function actualizarBotonesActivos(hojaActiva) {
-                tabButtons.forEach((btn, index) => {
-                    if (index === hojaActiva - 1) {
-                        btn.classList.add('active');
-                    } else {
-                        btn.classList.remove('active');
-                    }
-                });
-            }
-
-            // Detecta scroll horizontal y actualiza botones
-            hojasWrapper.addEventListener('scroll', () => {
-                const index = Math.round(hojasWrapper.scrollLeft / hojasWrapper.offsetWidth);
-                hojaActual = index + 1;
-                actualizarBotonesActivos(hojaActual);
-            });
-
-            // Soporte para swipe táctil
-            let startX = 0;
-            hojasWrapper.addEventListener('touchstart', (e) => {
-                if (e.touches.length === 1) {
-                    startX = e.touches[0].clientX;
-                }
-            });
-            hojasWrapper.addEventListener('touchend', (e) => {
-                if (e.changedTouches.length === 1) {
-                    const endX = e.changedTouches[0].clientX;
-                    const diff = endX - startX;
-                    if (Math.abs(diff) > 50) { // Umbral de swipe
-                        if (diff < 0 && hojaActual < hojas.length) {
-                            mostrarHoja(hojaActual + 1);
-                        } else if (diff > 0 && hojaActual > 1) {
-                            mostrarHoja(hojaActual - 1);
-                        }
-                    }
-                }
-            });
-
-            // Ajusta el scroll al cambiar el tamaño de la ventana
-            window.addEventListener('resize', () => {
-                mostrarHoja(hojaActual);
-            });
-
-            // Inicializa en la hoja 1
-            window.addEventListener('load', () => {
-                mostrarHoja(1);
-            });
-        </script>
+        <script src="script.js"></script>
     </body>
 </html>
